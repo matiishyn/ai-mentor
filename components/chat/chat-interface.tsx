@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { SignOutButton } from '@/components/ui/sign-out-button';
 import { useAuth } from '@/hooks/use-auth';
-import { Send, Bot, User, Sparkles, BarChart3, LogOut } from 'lucide-react';
-import { signOut } from '@/lib/auth';
+import { BarChart3, Bot, Send, Sparkles, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 interface Message {
   id: string;
@@ -91,10 +91,7 @@ export default function ChatInterface() {
     }
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    router.push('/auth');
-  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
@@ -120,15 +117,7 @@ export default function ChatInterface() {
               <BarChart3 className="w-4 h-4 mr-2" />
               Dashboard
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleSignOut}
-              className="text-gray-600 hover:text-red-600"
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
-            </Button>
+            <SignOutButton />
           </div>
         </div>
       </div>
@@ -143,16 +132,14 @@ export default function ChatInterface() {
               className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl flex items-start space-x-2 ${
-                  message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''
-                }`}
+                className={`max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl flex items-start space-x-2 ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''
+                  }`}
               >
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    message.sender === 'user'
-                      ? 'bg-gradient-to-br from-blue-500 to-purple-600'
-                      : 'bg-gradient-to-br from-purple-500 to-pink-500'
-                  }`}
+                  className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === 'user'
+                    ? 'bg-gradient-to-br from-blue-500 to-purple-600'
+                    : 'bg-gradient-to-br from-purple-500 to-pink-500'
+                    }`}
                 >
                   {message.sender === 'user' ? (
                     <User className="w-4 h-4 text-white" />
@@ -161,17 +148,15 @@ export default function ChatInterface() {
                   )}
                 </div>
                 <Card
-                  className={`p-3 ${
-                    message.sender === 'user'
-                      ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white'
-                      : 'bg-white/80 backdrop-blur-sm text-gray-800'
-                  }`}
+                  className={`p-3 ${message.sender === 'user'
+                    ? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white'
+                    : 'bg-white/80 backdrop-blur-sm text-gray-800'
+                    }`}
                 >
                   <p className="text-sm leading-relaxed">{message.content}</p>
                   <p
-                    className={`text-xs mt-1 ${
-                      message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'
-                    }`}
+                    className={`text-xs mt-1 ${message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'
+                      }`}
                   >
                     {message.timestamp.toLocaleTimeString([], {
                       hour: '2-digit',

@@ -1,26 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { SignOutButton } from '@/components/ui/sign-out-button';
 import { useAuth } from '@/hooks/use-auth';
-import { 
-  MessageCircle, 
-  BarChart3, 
-  Trophy, 
-  Star, 
-  Target, 
-  Zap,
+import {
   Award,
+  BarChart3,
+  MessageCircle,
+  Sparkles,
+  Star,
+  Target,
   TrendingUp,
+  Trophy,
   Users,
-  LogOut,
-  Sparkles
+  Zap
 } from 'lucide-react';
-import { signOut } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface Skill {
   name: string;
@@ -107,10 +106,7 @@ export default function XPDashboard() {
   const [nextLevelXP, setNextLevelXP] = useState(500);
   const [currentLevel, setCurrentLevel] = useState(3);
 
-  const handleSignOut = async () => {
-    await signOut();
-    router.push('/auth');
-  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
@@ -138,15 +134,7 @@ export default function XPDashboard() {
               <MessageCircle className="w-4 h-4 mr-2" />
               Chat
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleSignOut}
-              className="text-gray-600 hover:text-red-600"
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
-            </Button>
+            <SignOutButton />
           </div>
         </div>
       </div>
@@ -165,8 +153,8 @@ export default function XPDashboard() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <Progress 
-                value={(currentXP / nextLevelXP) * 100} 
+              <Progress
+                value={(currentXP / nextLevelXP) * 100}
                 className="h-3 bg-white/20"
               />
               <div className="flex justify-between text-sm text-purple-100">
@@ -203,8 +191,8 @@ export default function XPDashboard() {
                       <Badge variant="secondary">Level {skill.level}</Badge>
                     </div>
                     <div className="space-y-2">
-                      <Progress 
-                        value={(skill.xp / skill.maxXp) * 100} 
+                      <Progress
+                        value={(skill.xp / skill.maxXp) * 100}
                         className="h-2"
                       />
                       <div className="flex justify-between text-xs text-gray-600">
@@ -233,21 +221,19 @@ export default function XPDashboard() {
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2">
               {achievements.map((achievement) => (
-                <Card 
-                  key={achievement.id} 
-                  className={`border ${
-                    achievement.unlocked 
-                      ? 'bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200' 
-                      : 'bg-gray-50 border-gray-200'
-                  }`}
+                <Card
+                  key={achievement.id}
+                  className={`border ${achievement.unlocked
+                    ? 'bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200'
+                    : 'bg-gray-50 border-gray-200'
+                    }`}
                 >
                   <CardContent className="p-4">
                     <div className="flex items-start space-x-3">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        achievement.unlocked 
-                          ? 'bg-gradient-to-br from-yellow-400 to-orange-500 text-white' 
-                          : 'bg-gray-300 text-gray-500'
-                      }`}>
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${achievement.unlocked
+                        ? 'bg-gradient-to-br from-yellow-400 to-orange-500 text-white'
+                        : 'bg-gray-300 text-gray-500'
+                        }`}>
                         {achievement.unlocked ? achievement.icon : <Award className="w-5 h-5" />}
                       </div>
                       <div className="flex-1">
@@ -283,15 +269,15 @@ export default function XPDashboard() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
+              <Button
                 onClick={() => router.push('/chat')}
                 className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Continue Chatting
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="flex-1"
               >
                 <Target className="w-4 h-4 mr-2" />

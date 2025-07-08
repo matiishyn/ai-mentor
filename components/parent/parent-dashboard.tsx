@@ -2,17 +2,10 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { signOut } from '@/lib/auth';
-import { useRouter } from 'next/navigation';
-import { LogOut, Users, Calendar, BarChart3, Settings, Clock } from 'lucide-react';
+import { SignOutButton } from '@/components/ui/sign-out-button';
+import { BarChart3, Calendar, Clock, Settings, Users } from 'lucide-react';
 
 export default function ParentDashboard() {
-  const router = useRouter();
-
-  const handleSignOut = async () => {
-    await signOut();
-    router.push('/auth');
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
@@ -28,15 +21,7 @@ export default function ParentDashboard() {
               <p className="text-sm text-gray-600">Monitor your child's learning journey</p>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleSignOut}
-            className="text-gray-600 hover:text-red-600"
-          >
-            <LogOut className="w-4 h-4 mr-2" />
-            Sign Out
-          </Button>
+          <SignOutButton />
         </div>
       </div>
 
@@ -122,19 +107,19 @@ export default function ParentDashboard() {
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 mb-4">
-              Thank you for your interest in Astra! We're dedicated to creating the best possible 
-              experience for both children and parents. The parent dashboard will be available soon 
+              Thank you for your interest in Astra! We're dedicated to creating the best possible
+              experience for both children and parents. The parent dashboard will be available soon
               with comprehensive tools to support your child's learning journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="flex-1"
               >
                 Join Beta Program
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="flex-1"
               >
                 Get Email Updates

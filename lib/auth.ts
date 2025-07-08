@@ -81,12 +81,21 @@ export async function createProfile(profile: {
 }
 
 export async function getProfile(userId: string) {
-  const { data, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', userId)
-    .maybeSingle();
-  return { data, error };
+  console.log('getProfile: Starting query for userId:', userId);
+  
+  try {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .maybeSingle();
+    
+    console.log('getProfile: Query completed:', { data, error });
+    return { data, error };
+  } catch (err) {
+    console.error('getProfile: Query failed with exception:', err);
+    return { data: null, error: err };
+  }
 }
 
 export async function updateProfile(userId: string, updates: Partial<{
